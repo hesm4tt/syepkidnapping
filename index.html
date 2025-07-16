@@ -14,194 +14,141 @@
         /* Custom styles */
         body {
             font-family: 'Inter', sans-serif;
-            overflow: hidden; /* Hide scrollbars from the main body */
         }
-
-        #web-container {
-            position: relative;
-            width: 100%;
-            height: 100vh; /* Full viewport height */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        #central-node {
-            position: absolute;
-            z-index: 10;
-            transition: all 0.5s ease;
-        }
-
-        .sub-node {
-            position: absolute;
-            z-index: 5;
-            transition: all 0.5s ease;
-            width: 180px; /* Fixed width for nodes */
-        }
-        
-        /* The line connecting sub-node to center */
-        .sub-node::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 2px; /* Line thickness */
-            height: 0; /* Initially hidden */
-            background-color: #4b5563; /* gray-600 */
-            transform-origin: top;
-            z-index: -1;
-            transition: height 0.5s ease 0.2s;
-        }
-
-        /* Style for the content area for smooth transition */
-        .node-content {
+        /* Style for the accordion content area for smooth transition */
+        .accordion-content {
             max-height: 0;
             overflow: hidden;
             transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            padding: 0 1.5rem; /* Corresponds to p-6 in Tailwind */
         }
-
-        /* When the node is active */
-        .sub-node.active {
-            z-index: 20;
-            transform: scale(1.1) !important; /* Bring to front and enlarge */
+        /* When the 'active' class is added, the content expands */
+        .accordion-content.active {
+            max-height: 500px; /* Set a max-height large enough for the content */
+            padding: 1.5rem;
         }
-
-        .sub-node.active .node-content {
-            max-height: 500px; /* Expand content */
-            padding-top: 1rem;
+        /* Style for the arrow icon */
+        .arrow {
+            transition: transform 0.3s ease-in-out;
         }
-        
-        /* When any node is active, fade out non-active ones */
-        #web-container.active .sub-node:not(.active) {
-            opacity: 0.3;
-            transform: scale(0.9) !important;
+        /* Rotate arrow when active */
+        .active .arrow {
+            transform: rotate(90deg);
         }
-        #web-container.active #central-node {
-            opacity: 0.3;
-            transform: scale(0.9) !important;
-        }
-
     </style>
 </head>
 <body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
 
-    <div id="web-container">
-        <!-- Central Node -->
-        <div id="central-node" class="w-64 text-center p-6 bg-blue-600 text-white rounded-full shadow-2xl cursor-pointer">
-            <h1 class="text-xl font-bold">The Kidnapping of Elizabeth Smart</h1>
-            <p class="text-sm opacity-80">Click a topic to expand</p>
-        </div>
+    <div class="container mx-auto p-4 sm:p-6 lg:p-8">
+        <!-- Main Header -->
+        <header class="text-center mb-8">
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 dark:text-white">The Kidnapping of Elizabeth Smart</h1>
+            <p class="text-lg sm:text-xl text-gray-600 dark:text-gray-400 mt-2">A Horrible Crime and an Amazing Rescue</p>
+        </header>
 
-        <!-- Sub Node 1: Quick Facts -->
-        <div class="sub-node">
-            <button class="node-header w-full text-left p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-                <h2 class="font-bold text-gray-900 dark:text-white">Quick Facts</h2>
-            </button>
-            <div class="node-content text-sm text-gray-700 dark:text-gray-300 p-4 bg-white dark:bg-gray-800 rounded-b-xl shadow-lg">
-                <ul class="space-y-2">
-                    <li><strong>Who:</strong> Elizabeth Smart, 14</li>
-                    <li><strong>Where:</strong> Salt Lake City, Utah</li>
-                    <li><strong>When:</strong> June 5, 2002</li>
-                    <li><strong>How Long:</strong> 9 months</li>
-                </ul>
+        <main class="space-y-4">
+            <!-- Accordion Item 1: Quick Facts -->
+            <div class="accordion-item bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                <button class="accordion-header w-full flex justify-between items-center text-left p-6">
+                    <h2 class="text-2xl font-bold text-gray-900 dark:text-white">Quick Facts</h2>
+                    <svg class="arrow w-6 h-6 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <ul class="space-y-3 text-gray-700 dark:text-gray-300 border-t border-gray-200 dark:border-gray-700 pt-4">
+                        <li><strong class="font-semibold text-gray-900 dark:text-white">Who:</strong> Elizabeth Smart, a 14-year-old girl.</li>
+                        <li><strong class="font-semibold text-gray-900 dark:text-white">Where:</strong> Salt Lake City, Utah.</li>
+                        <li><strong class="font-semibold text-gray-900 dark:text-white">When:</strong> The kidnapping happened on June 5, 2002.</li>
+                        <li><strong class="font-semibold text-gray-900 dark:text-white">How Long:</strong> She was missing for nine whole months.</li>
+                    </ul>
+                </div>
             </div>
-        </div>
 
-        <!-- Sub Node 2: What Happened -->
-        <div class="sub-node">
-            <button class="node-header w-full text-left p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-                <h2 class="font-bold text-gray-900 dark:text-white">What Happened</h2>
-            </button>
-            <div class="node-content text-sm text-gray-700 dark:text-gray-300 p-4 bg-white dark:bg-gray-800 rounded-b-xl shadow-lg">
-                <p>A man broke into her room at night with a knife and forced her to leave. Her sister Mary Katherine pretended to be asleep.</p>
+            <!-- Accordion Item 2: What Happened -->
+            <div class="accordion-item bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                <button class="accordion-header w-full flex justify-between items-center text-left p-6">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">What Happened That Night</h2>
+                    <svg class="arrow w-6 h-6 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed border-t border-gray-200 dark:border-gray-700 pt-4">
+                        On June 5, 2002, a man broke into Elizabeth Smart's house in the middle of the night. He had a knife and forced her to leave with him from her own bedroom. Her nine-year-old sister, Mary Katherine, was in the same room and pretended to be asleep so she wouldn't get taken too.
+                    </p>
+                </div>
             </div>
-        </div>
-        
-        <!-- Sub Node 3: The Search -->
-        <div class="sub-node">
-            <button class="node-header w-full text-left p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-                <h2 class="font-bold text-gray-900 dark:text-white">The Search & Clue</h2>
-            </button>
-            <div class="node-content text-sm text-gray-700 dark:text-gray-300 p-4 bg-white dark:bg-gray-800 rounded-b-xl shadow-lg">
-                <p>Mary Katherine remembered the kidnapper's voice belonged to "Immanuel," a handyman. This helped police identify Brian David Mitchell.</p>
-            </div>
-        </div>
 
-        <!-- Sub Node 4: Found! -->
-        <div class="sub-node">
-            <button class="node-header w-full text-left p-4 bg-green-100 dark:bg-green-900 rounded-xl shadow-lg">
-                <h2 class="font-bold text-green-700 dark:text-green-300">Found!</h2>
-            </button>
-            <div class="node-content text-sm text-gray-700 dark:text-gray-300 p-4 bg-green-100 dark:bg-green-900 rounded-b-xl shadow-lg">
-                <p>On March 12, 2003, she was found walking down a street with her captors just 18 miles from home after people recognized them from TV.</p>
+            <!-- Accordion Item 3: The Search -->
+            <div class="accordion-item bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                <button class="accordion-header w-full flex justify-between items-center text-left p-6">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">The Search and a Big Clue</h2>
+                    <svg class="arrow w-6 h-6 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed border-t border-gray-200 dark:border-gray-700 pt-4">
+                        A massive search for Elizabeth started right away, and her face was all over the news. For months, nobody could find her. Then, Mary Katherine remembered that the kidnapper's voice sounded like a man who had done some work at their house for a day, a guy who called himself "Immanuel." This was the biggest clue in the whole case and helped the police identify the kidnapper as a man named Brian David Mitchell.
+                    </p>
+                </div>
             </div>
-        </div>
 
-        <!-- Sub Node 5: Aftermath -->
-        <div class="sub-node">
-            <button class="node-header w-full text-left p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
-                <h2 class="font-bold text-gray-900 dark:text-white">Aftermath</h2>
-            </button>
-            <div class="node-content text-sm text-gray-700 dark:text-gray-300 p-4 bg-white dark:bg-gray-800 rounded-b-xl shadow-lg">
-                <p>Mitchell and his wife were sent to prison. Elizabeth is now an advocate for missing children.</p>
+            <!-- Accordion Item 4: Found! -->
+            <div class="accordion-item bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                <button class="accordion-header w-full flex justify-between items-center text-left p-6">
+                    <h2 class="text-xl font-bold text-green-600 dark:text-green-400">Found!</h2>
+                    <svg class="arrow w-6 h-6 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed border-t border-gray-200 dark:border-gray-700 pt-4">
+                        After nine long months, on March 12, 2003, people saw Elizabeth walking down the street with Mitchell and his wife, Wanda Barzee. They were only about 18 miles from her home! Even though she was wearing a wig and sunglasses as a disguise, people recognized them from TV and called the police, who came and rescued her.
+                    </p>
+                </div>
             </div>
-        </div>
+
+            <!-- Accordion Item 5: Aftermath -->
+            <div class="accordion-item bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                <button class="accordion-header w-full flex justify-between items-center text-left p-6">
+                    <h2 class="text-xl font-bold text-gray-900 dark:text-white">Aftermath</h2>
+                    <svg class="arrow w-6 h-6 text-gray-500 dark:text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </button>
+                <div class="accordion-content">
+                    <p class="text-gray-700 dark:text-gray-300 leading-relaxed border-t border-gray-200 dark:border-gray-700 pt-4">
+                        Brian David Mitchell and Wanda Barzee were arrested and sent to prison for what they did. Elizabeth Smart was finally reunited with her family. Today, she is grown up and is an advocate who works to help find other missing kids and prevent abductions.
+                    </p>
+                </div>
+            </div>
+        </main>
+
+        <!-- Footer -->
+        <footer class="text-center mt-10 text-gray-500 dark:text-gray-400 text-sm">
+            <p>Information based on the case of Elizabeth Smart.</p>
+        </footer>
 
     </div>
 
     <script>
+        // JavaScript to make the accordion work
         document.addEventListener('DOMContentLoaded', function () {
-            const container = document.getElementById('web-container');
-            const nodes = document.querySelectorAll('.sub-node');
-            const radius = Math.min(window.innerWidth, window.innerHeight) / 2.5; // Adjust radius based on screen size
-            const angleStep = (2 * Math.PI) / nodes.length;
+            const accordionItems = document.querySelectorAll('.accordion-item');
 
-            // Position nodes in a circle
-            nodes.forEach((node, index) => {
-                const angle = index * angleStep - (Math.PI / 2); // Start from top
-                const x = Math.cos(angle) * radius;
-                const y = Math.sin(angle) * radius;
-                node.style.transform = `translate(${x}px, ${y}px)`;
-                
-                // Draw connecting line
-                const line = node.querySelector('::before'); // This is a pseudo-element
-                const nodeStyle = window.getComputedStyle(node);
-                node.style.setProperty('--line-height', `${radius}px`);
-                node.style.setProperty('--line-rotation', `${angle * (180/Math.PI) + 90}deg`);
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                const content = item.querySelector('.accordion-content');
 
-                // We'll use JS to inject style for the pseudo-element since it's dynamic
-                const styleSheet = document.styleSheets[0];
-                const rule = `.sub-node:nth-of-type(${index + 1})::before { height: ${radius - 40}px; transform: translateY(-${radius - 40}px) rotate(${angle * (180/Math.PI) + 90}deg); }`;
-                styleSheet.insertRule(rule, styleSheet.cssRules.length);
-            });
-            
-            // Handle click events
-            nodes.forEach(node => {
-                const header = node.querySelector('.node-header');
-                header.addEventListener('click', (e) => {
-                    e.stopPropagation();
-                    const isActive = node.classList.contains('active');
-                    
-                    // Remove active from all nodes
-                    nodes.forEach(n => n.classList.remove('active'));
-                    
-                    // If it wasn't active, make it active
+                header.addEventListener('click', () => {
+                    // Check if the current item is already active
+                    const isActive = content.classList.contains('active');
+
+                    // First, close all other accordion items
+                    accordionItems.forEach(otherItem => {
+                        otherItem.querySelector('.accordion-content').classList.remove('active');
+                        otherItem.querySelector('.accordion-header').classList.remove('active');
+                    });
+
+                    // If the clicked item was not active, open it
                     if (!isActive) {
-                        node.classList.add('active');
-                        container.classList.add('active');
-                    } else {
-                        // If it was already active, clicking again closes it
-                        container.classList.remove('active');
+                        content.classList.add('active');
+                        header.classList.add('active');
                     }
                 });
             });
-
-            // Clicking the background or central node closes any open node
-            container.addEventListener('click', () => {
-                 nodes.forEach(n => n.classList.remove('active'));
-                 container.classList.remove('active');
-            });
-
         });
     </script>
 
