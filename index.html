@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Kidnapping of Elizabeth Smart</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        /* Custom styles */
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow: hidden; /* Hide scrollbars from the main body */
+        }
+
+        #web-container {
+            position: relative;
+            width: 100%;
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #central-node {
+            position: absolute;
+            z-index: 10;
+            transition: all 0.5s ease;
+        }
+
+        .sub-node {
+            position: absolute;
+            z-index: 5;
+            transition: all 0.5s ease;
+            width: 180px; /* Fixed width for nodes */
+        }
+        
+        /* The line connecting sub-node to center */
+        .sub-node::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 2px; /* Line thickness */
+            height: 0; /* Initially hidden */
+            background-color: #4b5563; /* gray-600 */
+            transform-origin: top;
+            z-index: -1;
+            transition: height 0.5s ease 0.2s;
+        }
+
+        /* Style for the content area for smooth transition */
+        .node-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+        }
+
+        /* When the node is active */
+        .sub-node.active {
+            z-index: 20;
+            transform: scale(1.1) !important; /* Bring to front and enlarge */
+        }
+
+        .sub-node.active .node-content {
+            max-height: 500px; /* Expand content */
+            padding-top: 1rem;
+        }
+        
+        /* When any node is active, fade out non-active ones */
+        #web-container.active .sub-node:not(.active) {
+            opacity: 0.3;
+            transform: scale(0.9) !important;
+        }
+        #web-container.active #central-node {
+            opacity: 0.3;
+            transform: scale(0.9) !important;
+        }
+
+    </style>
+</head>
+<body class="bg-gray-100 dark:bg-gray-900 text-gray-800 dark:text-gray-200">
+
+    <div id="web-container">
+        <!-- Central Node -->
+        <div id="central-node" class="w-64 text-center p-6 bg-blue-600 text-white rounded-full shadow-2xl cursor-pointer">
+            <h1 class="text-xl font-bold">The Kidnapping of Elizabeth Smart</h1>
+            <p class="text-sm opacity-80">Click a topic to expand</p>
+        </div>
+
+        <!-- Sub Node 1: Quick Facts -->
+        <div class="sub-node">
+            <button class="node-header w-full text-left p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                <h2 class="font-bold text-gray-900 dark:text-white">Quick Facts</h2>
+            </button>
+            <div class="node-content text-sm text-gray-700 dark:text-gray-300 p-4 bg-white dark:bg-gray-800 rounded-b-xl shadow-lg">
+                <ul class="space-y-2">
+                    <li><strong>Who:</strong> Elizabeth Smart, 14</li>
+                    <li><strong>Where:</strong> Salt Lake City, Utah</li>
+                    <li><strong>When:</strong> June 5, 2002</li>
+                    <li><strong>How Long:</strong> 9 months</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Sub Node 2: What Happened -->
+        <div class="sub-node">
+            <button class="node-header w-full text-left p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                <h2 class="font-bold text-gray-900 dark:text-white">What Happened</h2>
+            </button>
+            <div class="node-content text-sm text-gray-700 dark:text-gray-300 p-4 bg-white dark:bg-gray-800 rounded-b-xl shadow-lg">
+                <p>A man broke into her room at night with a knife and forced her to leave. Her sister Mary Katherine pretended to be asleep.</p>
+            </div>
+        </div>
+        
+        <!-- Sub Node 3: The Search -->
+        <div class="sub-node">
+            <button class="node-header w-full text-left p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                <h2 class="font-bold text-gray-900 dark:text-white">The Search & Clue</h2>
+            </button>
+            <div class="node-content text-sm text-gray-700 dark:text-gray-300 p-4 bg-white dark:bg-gray-800 rounded-b-xl shadow-lg">
+                <p>Mary Katherine remembered the kidnapper's voice belonged to "Immanuel," a handyman. This helped police identify Brian David Mitchell.</p>
+            </div>
+        </div>
+
+        <!-- Sub Node 4: Found! -->
+        <div class="sub-node">
+            <button class="node-header w-full text-left p-4 bg-green-100 dark:bg-green-900 rounded-xl shadow-lg">
+                <h2 class="font-bold text-green-700 dark:text-green-300">Found!</h2>
+            </button>
+            <div class="node-content text-sm text-gray-700 dark:text-gray-300 p-4 bg-green-100 dark:bg-green-900 rounded-b-xl shadow-lg">
+                <p>On March 12, 2003, she was found walking down a street with her captors just 18 miles from home after people recognized them from TV.</p>
+            </div>
+        </div>
+
+        <!-- Sub Node 5: Aftermath -->
+        <div class="sub-node">
+            <button class="node-header w-full text-left p-4 bg-white dark:bg-gray-800 rounded-xl shadow-lg">
+                <h2 class="font-bold text-gray-900 dark:text-white">Aftermath</h2>
+            </button>
+            <div class="node-content text-sm text-gray-700 dark:text-gray-300 p-4 bg-white dark:bg-gray-800 rounded-b-xl shadow-lg">
+                <p>Mitchell and his wife were sent to prison. Elizabeth is now an advocate for missing children.</p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const container = document.getElementById('web-container');
+            const nodes = document.querySelectorAll('.sub-node');
+            const radius = Math.min(window.innerWidth, window.innerHeight) / 2.5; // Adjust radius based on screen size
+            const angleStep = (2 * Math.PI) / nodes.length;
+
+            // Position nodes in a circle
+            nodes.forEach((node, index) => {
+                const angle = index * angleStep - (Math.PI / 2); // Start from top
+                const x = Math.cos(angle) * radius;
+                const y = Math.sin(angle) * radius;
+                node.style.transform = `translate(${x}px, ${y}px)`;
+                
+                // Draw connecting line
+                const line = node.querySelector('::before'); // This is a pseudo-element
+                const nodeStyle = window.getComputedStyle(node);
+                node.style.setProperty('--line-height', `${radius}px`);
+                node.style.setProperty('--line-rotation', `${angle * (180/Math.PI) + 90}deg`);
+
+                // We'll use JS to inject style for the pseudo-element since it's dynamic
+                const styleSheet = document.styleSheets[0];
+                const rule = `.sub-node:nth-of-type(${index + 1})::before { height: ${radius - 40}px; transform: translateY(-${radius - 40}px) rotate(${angle * (180/Math.PI) + 90}deg); }`;
+                styleSheet.insertRule(rule, styleSheet.cssRules.length);
+            });
+            
+            // Handle click events
+            nodes.forEach(node => {
+                const header = node.querySelector('.node-header');
+                header.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    const isActive = node.classList.contains('active');
+                    
+                    // Remove active from all nodes
+                    nodes.forEach(n => n.classList.remove('active'));
+                    
+                    // If it wasn't active, make it active
+                    if (!isActive) {
+                        node.classList.add('active');
+                        container.classList.add('active');
+                    } else {
+                        // If it was already active, clicking again closes it
+                        container.classList.remove('active');
+                    }
+                });
+            });
+
+            // Clicking the background or central node closes any open node
+            container.addEventListener('click', () => {
+                 nodes.forEach(n => n.classList.remove('active'));
+                 container.classList.remove('active');
+            });
+
+        });
+    </script>
+
+</body>
+</html>
